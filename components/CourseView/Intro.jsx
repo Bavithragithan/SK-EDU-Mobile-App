@@ -63,7 +63,7 @@ export default function Intro({ course }) {
                 position: 'absolute',
                 padding: 10
             }}
-                onPress={()=>router.back()}
+                onPress={()=>router.replace('/(tabs)/home')}
             >
                 <Ionicons name="arrow-back" size={35} color="black" />
             </Pressable>

@@ -4,6 +4,7 @@ import { UserDetailContext } from './../../context/UserDetailsContext';
 import Feather from '@expo/vector-icons/Feather';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
+import Colors from '../../constant/Colors';
 
 export default function Header() {
     const { userDetail, setUserDetail } = useContext(UserDetailContext);
@@ -39,12 +40,14 @@ export default function Header() {
             <View>
                 <Text style={{
                     fontFamily: 'outfit-bold',
-                    fontSize: 25
+                    fontSize: 25,
+                    color: Colors.WHITE
                 }}>Hello, {userDetail?.name || 'User'}</Text>
 
                 <Text style={{
                     fontFamily: 'outfit',
-                    fontSize: 17
+                    fontSize: 17,
+                    color: Colors.WHITE
                 }}>Let's Get Started!</Text>
             </View>
 

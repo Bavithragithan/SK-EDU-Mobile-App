@@ -3,7 +3,7 @@ export const PraticeOption = [
         name: 'Quiz',
         image: require('./../assets/images/quizz.png'),
         icon: require('./../assets/images/quiz.png'),
-        path: '/quiz'
+        path: '/practice/quiz'
     },
     {
         name: 'Flashcards',

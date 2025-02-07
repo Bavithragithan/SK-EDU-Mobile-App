@@ -68,27 +68,29 @@ export default function AddCourse() {
 
         try {
             const aiResp = await GenerateCourseAIModel.sendMessage(PROMPT);
-
-            const courses = JSON.parse(aiResp.response.text());
+            const textResponse = await aiResp.response.text();
+            const courses = JSON.parse(textResponse);
 
             console.log(courses);
 
-            courses?.forEach(async (course) => {
-                await setDoc(doc(db, 'Courses', Date.now().toString()), {
+            for (const course of courses) {
+                const docId = Date.now().toString();
+                await setDoc(doc(db, 'Courses', docId), {
                     ...course,
                     createdOn: new Date(),
                     createdBy: userDetail?.email,
-                })
-            })
-            router.push('/(tabs)/home')
+                    docId: docId
+                });
+            }
+
+            router.push('/(tabs)/home');
+            setLoading(false);
+        } catch (e) {
+            console.error("Error generating courses:", e);
             setLoading(false);
         }
-        catch (e) {
-            setLoading(false);
-        }
-
-
     }
+
 
     return (
         <ScrollView style={{

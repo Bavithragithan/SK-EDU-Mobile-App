@@ -1,9 +1,18 @@
-import { View, Text, FlatList, StyleSheet } from 'react-native'
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Fontisto from '@expo/vector-icons/Fontisto';
 import Colors from '../../constant/Colors';
+import { useRouter } from 'expo-router';
+import Feather from '@expo/vector-icons/Feather';
 
 export default function Chapters({ course }) {
+    const router = useRouter();
+
+    const isChapterCompleted = (index) => {
+        const isCompleted = course?.completedChapter?.find(item => item == index);
+        return isCompleted ? true : false;
+    };
+    
     return (
         <View style={{
             padding: 20
@@ -16,7 +25,16 @@ export default function Chapters({ course }) {
             <FlatList
                 data={course?.chapters}
                 renderItem={({ item, index }) => (
-                    <View style={{
+                    <TouchableOpacity onPress={() => {
+                        router.push({
+                            pathname: '/chapterView',
+                            params: {
+                                chapterParams: JSON.stringify(item),
+                                docId: course?.docId,
+                                chapterIndex: index
+                            }
+                        })
+                    }} style={{
                         padding: 18,
                         borderWidth: 0.5,
                         borderRadius: 15,
@@ -31,11 +49,13 @@ export default function Chapters({ course }) {
                             flexDirection: 'row',
                             gap: 10
                         }}>
-                            <Text style={styles.chapterText}>{index+1}.</Text>
+                            <Text style={styles.chapterText}>{index + 1}.</Text>
                             <Text style={styles.chapterText}>{item.chapterName}</Text>
                         </View>
-                        <Fontisto name="play" size={15} color={Colors.PRIMARY} />
-                    </View>
+                        {isChapterCompleted(index)?
+                        <Feather name="check-circle" size={24} color={Colors.GREEN} />:
+                        <Fontisto name="play" size={15} color={Colors.PRIMARY} /> }
+                    </TouchableOpacity>
                 )}
             />
         </View>
@@ -43,7 +63,7 @@ export default function Chapters({ course }) {
 }
 
 const styles = StyleSheet.create({
-    chapterText:{
+    chapterText: {
         fontFamily: 'outfit',
         fontSize: 14,
     }
