@@ -5,12 +5,12 @@ import Colors from '../../constant/Colors';
 import Feather from '@expo/vector-icons/Feather';
 import { useRouter } from 'expo-router';
 
-export default function CourseList({ courses }) {
+export default function CourseList({ courses, heading = "Courses", enroll = false }) {
 
     const route = useRouter();
     return (
         <View style={{ marginTop: 15 }}>
-            <Text style={{ fontFamily: 'outfit-bold', fontSize: 25 }}>Courses</Text>
+            <Text style={{ fontFamily: 'outfit-bold', fontSize: 25 }}>{heading}</Text>
 
             <FlatList
                 data={courses}
@@ -21,7 +21,8 @@ export default function CourseList({ courses }) {
                         onPress={() => route.push({
                             pathname: '/CourseView/' + item?.docId,
                             params: {
-                                courseParams: JSON.stringify(item)
+                                courseParams: JSON.stringify(item),
+                                enroll: enroll
                             }
                         })}
                         style={styles.courseContainer}>

@@ -10,23 +10,24 @@ export default function NoCourse() {
     <View style={{
         marginTop: 40,
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
     }}>
       <Image source={require('./../../assets/images/book.png')}
       style={{
-        height: 200,
-        width: 200
+        height: 300,
+        width: 300
       }}
       />
       <Text style={{
         fontFamily: 'outfit-bold',
         fontSize: 25,
-        textAlign: 'center'
+        textAlign: 'center',
+        marginTop: 25
       }}>You Don't Have Any Course</Text>
 
-      <Button text={'+ Create New Course'} onPress={()=>router.push('/addCourse')} />
-      <Button text={'Explore Existing Courses'} 
-        type='outline'
+      {/* <Button text={'+ Create New Course'} onPress={()=>router.push('/addCourse')} /> */}
+      <Button text={'Start Enrolling Courses Here...'} 
+         onPress={()=>router.push('/(tabs)/explore')}
       />
       
     </View>

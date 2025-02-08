@@ -32,15 +32,17 @@ export default function SignIn() {
     };
 
     const getUserDetail = async (uid) => {
-        const result = await getDoc(doc(db, 'users', uid));
-        if (result.exists()) {
-            console.log(result.data());
-        } else {
-            console.log("User not found in Firestore");
+        try {
+            const result = await getDoc(doc(db, 'users', uid));
+            if (result.exists()) {
+                setUserDetail(result.data());
+            } else {
+                console.log("User not found in Firestore");
+            }
+        } catch (error) {
+            console.log("Firestore Error:", error.message);
         }
-        setUserDetail(result.data())
     };
-
 
     return (
         <View style={styles.container}>
@@ -63,7 +65,7 @@ export default function SignIn() {
             />
 
             <TouchableOpacity onPress={onSignInClick} disabled={loading} style={styles.button}>
-                {!loading ? <Text style={styles.buttonText}>Sign In</Text> : <ActivityIndicator size={'large'} color={Colors.WHITE}/> }
+                {!loading ? <Text style={styles.buttonText}>Sign In</Text> : <ActivityIndicator size={'large'} color={Colors.WHITE} />}
             </TouchableOpacity>
 
             <View style={styles.signupContainer}>
